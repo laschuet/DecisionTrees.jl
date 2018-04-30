@@ -4,7 +4,17 @@ module DecisionTrees
 using StatsBase
 
 export entropy,
-        information_gain
+        information_gain,
+        Node
+
+struct Node
+    attr::String
+    entr::Real
+    ig::Real
+end
+
+Base.show(io::IO, n::Node) =
+        @printf(io, "[%s | entr=%.4f, ig=%.4f]", n.attr, n.entr, n.ig)
 
 """Compute the entropy of the specified dataset."""
 function entropy(dataset::Array{Any, 2}, target::Int)
