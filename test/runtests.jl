@@ -15,3 +15,6 @@ for i in 1:6
     @test ig >= 0 && ig <= 1
     println("ig $(header[i])=$ig")
 end
+
+root = Node(header[1], ent, information_gain(cars, 1, 7))
+print(root)
