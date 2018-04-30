@@ -19,12 +19,12 @@ function information_gain(dataset::Array{Any, 2}, attribute::Int, target::Int)
     attr = dataset[:, attribute]
     uniques = unique(attr)
 
-    tmp = mapreduce(u -> begin
+    attr_sub_entropy = mapreduce(u -> begin
         subset = dataset[attr .== u, :]
         return size(subset, 1) / n * entropy(subset, target)
     end, +, 0, uniques)
 
-    return entropy(dataset, target) - tmp
+    return entropy(dataset, target) - attr_sub_entropy
 end
 
 end # module DecisionTrees
