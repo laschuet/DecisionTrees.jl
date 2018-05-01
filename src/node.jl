@@ -9,6 +9,7 @@ struct Node
     ig::Real
     children::Array{Node}
 end
+Node() = Node("", 0, 1, [])
 
 """Access a node's attribute."""
 attribute(n::Node) = n.attr
