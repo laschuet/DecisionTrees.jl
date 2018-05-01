@@ -16,5 +16,9 @@ for i in 1:6
     println("ig $(header[i])=$ig")
 end
 
-root = Node(header[1], ent, information_gain(cars, 1, 7))
+root = Node(header[1], ent, information_gain(cars, 1, 7), [])
 print(root)
+
+println(root.children)
+push!(root, root)
+println(root.children)
