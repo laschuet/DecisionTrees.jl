@@ -39,3 +39,11 @@ end
     append!(root, [node, node, node])
     @test length(root.children) == prev_num_children + 3
 end
+
+@testset "show" begin
+    io = IOBuffer()
+    node = Node("", 0, 1, [])
+    node2 = Node("class", 0, 1, [])
+    @test sprint(show, node) == "[ | entr=0.0000, ig=1.0000]"
+    @test sprint(show, node2) == "[class | entr=0.0000, ig=1.0000]"
+end
