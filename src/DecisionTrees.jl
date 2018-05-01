@@ -7,6 +7,11 @@ export entropy,
         information_gain,
         Node
 
+"""
+    Node
+
+Decision tree node type.
+"""
 struct Node
     attr::String
     entr::Real
