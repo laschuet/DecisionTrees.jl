@@ -11,3 +11,10 @@
     append!(root, [root, root])
     println(root.children)
 end
+
+@testset "properties" begin
+    node = Node("", 0, 1, [])
+    node2 = Node("", 0, 1, [node])
+    @test num_children(node) == 0
+    @test num_children(node2) == 1
+end

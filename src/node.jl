@@ -10,6 +10,9 @@ struct Node
     children::Array{Node}
 end
 
+"""Retrieve number of children for the specified node."""
+num_children(n::Node) = length(n.children)
+
 # Add the specified child to the node
 Base.push!(n::Node, child::Node) = push!(n.children, child)
 

@@ -5,7 +5,8 @@ using StatsBase
 
 export entropy,
         information_gain,
-        Node
+        Node,
+        num_children
 
 include("measures.jl")
 include("node.jl")
