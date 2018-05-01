@@ -3,7 +3,9 @@ module DecisionTrees
 
 using StatsBase
 
-export entropy,
+export attribute,
+        children,
+        entropy,
         information_gain,
         Node,
         num_children

@@ -12,6 +12,14 @@
     println(root.children)
 end
 
+@testset "accessors" begin
+    node = Node("", 0, 1, [])
+    @test attribute(node) == node.attr
+    @test entropy(node) == node.entr
+    @test information_gain(node) == node.ig
+    @test children(node) == node.children
+end
+
 @testset "properties" begin
     node = Node("", 0, 1, [])
     node2 = Node("", 0, 1, [node])

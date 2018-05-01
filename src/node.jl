@@ -10,6 +10,18 @@ struct Node
     children::Array{Node}
 end
 
+"""Access a node's attribute."""
+attribute(n::Node) = n.attr
+
+"""Access a node's entropy."""
+entropy(n::Node) = n.entr
+
+"""Access a node's information gain."""
+information_gain(n::Node) = n.ig
+
+"""Access a node's children."""
+children(n::Node) = n.children
+
 """Retrieve number of children for the specified node."""
 num_children(n::Node) = length(n.children)
 
