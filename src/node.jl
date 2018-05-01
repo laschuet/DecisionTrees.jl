@@ -1,0 +1,21 @@
+"""
+    Node
+
+Decision tree node type.
+"""
+struct Node
+    attr::String
+    entr::Real
+    ig::Real
+    children::Array{Node}
+end
+
+# Add the specified child to the node
+Base.push!(n::Node, child::Node) = push!(n.children, child)
+
+# Add all children to the node
+Base.append!(n::Node, children::Array{Node}) = append!(n.children, children)
+
+# Display the specified node
+Base.show(io::IO, n::Node) =
+        @printf(io, "[%s | entr=%.4f, ig=%.4f]", n.attr, n.entr, n.ig)
