@@ -19,9 +19,10 @@ struct Node
     children::Array{Node}
 end
 
-"""Add the specified child to the node."""
+# Add the specified child to the node
 Base.push!(n::Node, child::Node) = push!(n.children, child)
 
+# Display the specified node
 Base.show(io::IO, n::Node) =
         @printf(io, "[%s | entr=%.4f, ig=%.4f]", n.attr, n.entr, n.ig)
 
