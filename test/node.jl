@@ -20,6 +20,12 @@ end
     @test num_children(node) == 0
 end
 
+@testset "operators" begin
+    node = Node("", 0, 1, [])
+    node2 = Node("", 0, 1, [])
+    @test node == node2
+end
+
 @testset "mutations" begin
     root = Node("", 0, 1, [])
     node = Node("", 0, 1, [])

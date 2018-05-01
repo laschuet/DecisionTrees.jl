@@ -26,6 +26,10 @@ children(n::Node) = n.children
 """Retrieve number of children for the specified node."""
 num_children(n::Node) = length(n.children)
 
+# Check for equality
+Base.:(==)(x::Node, y::Node) = (x.attr == y.attr) & (x.entr == y.entr) &
+        (x.ig == y.ig) & (x.children == y.children)
+
 # Add the specified child to the node
 Base.push!(n::Node, child::Node) = push!(n.children, child)
 
