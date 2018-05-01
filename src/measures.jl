@@ -5,6 +5,10 @@ function entropy(dataset::Array{Any, 2}, target::Int)
     return -mapreduce(p -> p * log(p), +, 0, prop_vals)
 end
 
+""""""
+entropy(dataset::Array{Any, 2}, target::String, header::Array{String}) =
+        entropy(dataset, findfirst(header, target))
+
 """Compute the information gain of the specified attribute."""
 function information_gain(dataset::Array{Any, 2}, attribute::Int, target::Int)
     n = size(dataset, 1)
@@ -18,3 +22,19 @@ function information_gain(dataset::Array{Any, 2}, attribute::Int, target::Int)
 
     return entropy(dataset, target) - attr_sub_entropy
 end
+
+""""""
+information_gain(dataset::Array{Any, 2}, attribute::String, target::String,
+        header::Array{String}) =
+                information_gain(dataset, findfirst(header, attribute),
+                        findfirst(header, target))
+
+""""""
+information_gain(dataset::Array{Any, 2}, attribute::String, target::Int,
+        header::Array{String}) =
+                information_gain(dataset, findfirst(header, attribute), target)
+
+""""""
+information_gain(dataset::Array{Any, 2}, attribute::Int, target::String,
+        header::Array{String}) =
+                information_gain(dataset, attribute, findfirst(header, target))
