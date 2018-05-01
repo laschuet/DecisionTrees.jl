@@ -22,3 +22,7 @@ println(root)
 println(root.children)
 push!(root, root)
 println(root.children)
+
+println(root.children)
+append!(root, [root, root])
+println(root.children)
