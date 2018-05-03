@@ -7,7 +7,7 @@ struct Node
     attr::String
     entr::Real
     ig::Real
-    children::Array{Node}
+    children::AbstractArray{Node}
 end
 Node() = Node("", 0, 1, [])
 
@@ -34,7 +34,8 @@ Base.:(==)(x::Node, y::Node) = (x.attr == y.attr) & (x.entr == y.entr) &
 Base.push!(n::Node, child::Node) = push!(n.children, child)
 
 # Add all children to the node
-Base.append!(n::Node, children::Array{Node}) = append!(n.children, children)
+Base.append!(n::Node, children::AbstractArray{Node}) =
+    append!(n.children, children)
 
 # Display the specified node
 Base.show(io::IO, n::Node) =
