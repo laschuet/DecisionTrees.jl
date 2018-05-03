@@ -1,8 +1,6 @@
 __precompile__()
 module DecisionTrees
 
-using StatsBase
-
 export attribute,
     children,
     entropy,

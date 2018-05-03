@@ -2,8 +2,14 @@
 function entropy(dataset::AbstractArray{T, 2}, target::Integer,
                 c::Integer=2) where {T}
     class = dataset[:, target]
-    prop_vals = collect(values(proportionmap(class)))
-    return -mapreduce(p -> p * log2(p), +, 0, prop_vals) / log2(c)
+    n = length(class)
+    uniques = unique(class)
+
+    return -mapreduce(u -> begin
+        subset = dataset[class .== u, :]
+        p = size(subset, 1) / n
+        return p * log2(p)
+    end, +, 0, uniques) / log2(c)
 end
 
 entropy(dataset::AbstractArray{T, 2}, target::String,
