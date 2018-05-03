@@ -1,17 +1,17 @@
 """Compute the entropy of the specified dataset."""
-function entropy(dataset::AbstractArray{Any, 2}, target::Int)
+function entropy(dataset::AbstractArray{T, 2}, target::Int) where {T}
     class = dataset[:, target]
     prop_vals = collect(values(proportionmap(class)))
     return -mapreduce(p -> p * log(p), +, 0, prop_vals)
 end
 
-entropy(dataset::AbstractArray{Any, 2}, target::String,
-        header::AbstractArray{String}) =
+entropy(dataset::AbstractArray{T, 2}, target::String,
+        header::AbstractArray{String}) where {T} =
     entropy(dataset, findfirst(header, target))
 
 """Compute the information gain of the specified attribute."""
-function information_gain(dataset::AbstractArray{Any, 2}, attribute::Int,
-                        target::Int)
+function information_gain(dataset::AbstractArray{T, 2}, attribute::Int,
+                        target::Int) where {T}
     n = size(dataset, 1)
     attr = dataset[:, attribute]
     uniques = unique(attr)
@@ -24,15 +24,15 @@ function information_gain(dataset::AbstractArray{Any, 2}, attribute::Int,
     return entropy(dataset, target) - attr_sub_entropy
 end
 
-information_gain(dataset::AbstractArray{Any, 2}, attribute::String,
-                target::String, header::AbstractArray{String}) =
+information_gain(dataset::AbstractArray{T, 2}, attribute::String,
+                target::String, header::AbstractArray{String}) where {T} =
     information_gain(dataset, findfirst(header, attribute),
                     findfirst(header, target))
 
-information_gain(dataset::AbstractArray{Any, 2}, attribute::String, target::Int,
-                header::AbstractArray{String}) =
+information_gain(dataset::AbstractArray{T, 2}, attribute::String, target::Int,
+                header::AbstractArray{String}) where {T} =
     information_gain(dataset, findfirst(header, attribute), target)
 
-information_gain(dataset::AbstractArray{Any, 2}, attribute::Int, target::String,
-                header::AbstractArray{String}) =
+information_gain(dataset::AbstractArray{T, 2}, attribute::Int, target::String,
+                header::AbstractArray{String}) where {T} =
     information_gain(dataset, attribute, findfirst(header, target))
