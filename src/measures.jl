@@ -11,7 +11,7 @@ entropy(dataset::AbstractArray{Any, 2}, target::String,
 
 """Compute the information gain of the specified attribute."""
 function information_gain(dataset::AbstractArray{Any, 2}, attribute::Int,
-        target::Int)
+                        target::Int)
     n = size(dataset, 1)
     attr = dataset[:, attribute]
     uniques = unique(attr)
@@ -25,14 +25,14 @@ function information_gain(dataset::AbstractArray{Any, 2}, attribute::Int,
 end
 
 information_gain(dataset::AbstractArray{Any, 2}, attribute::String,
-        target::String, header::AbstractArray{String}) =
+                target::String, header::AbstractArray{String}) =
     information_gain(dataset, findfirst(header, attribute),
-            findfirst(header, target))
+                    findfirst(header, target))
 
 information_gain(dataset::AbstractArray{Any, 2}, attribute::String, target::Int,
-        header::AbstractArray{String}) =
+                header::AbstractArray{String}) =
     information_gain(dataset, findfirst(header, attribute), target)
 
 information_gain(dataset::AbstractArray{Any, 2}, attribute::Int, target::String,
-        header::AbstractArray{String}) =
+                header::AbstractArray{String}) =
     information_gain(dataset, attribute, findfirst(header, target))

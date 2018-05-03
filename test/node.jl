@@ -2,9 +2,9 @@
     node = Node()
     node2 = Node("", 0, 1, [])
     @test isa(node, Node) && node.attr == "" && node.entr == 0 &&
-            node.ig == 1 && node.children == []
+        node.ig == 1 && node.children == []
     @test isa(node2, Node) && node2.attr == "" && node2.entr == 0 &&
-            node2.ig == 1 && node2.children == []
+        node2.ig == 1 && node2.children == []
 end
 
 @testset "accessors" begin

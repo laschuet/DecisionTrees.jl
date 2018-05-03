@@ -27,8 +27,9 @@ children(n::Node) = n.children
 num_children(n::Node) = length(n.children)
 
 # Check for equality
-Base.:(==)(x::Node, y::Node) = (x.attr == y.attr) & (x.entr == y.entr) &
-        (x.ig == y.ig) & (x.children == y.children)
+Base.:(==)(x::Node, y::Node) =
+    (x.attr == y.attr) & (x.entr == y.entr) & (x.ig == y.ig) &
+        (x.children == y.children)
 
 # Add the specified child to the node
 Base.push!(n::Node, child::Node) = push!(n.children, child)
@@ -39,4 +40,4 @@ Base.append!(n::Node, children::AbstractArray{Node}) =
 
 # Display the specified node
 Base.show(io::IO, n::Node) =
-        @printf(io, "[%s | entr=%.4f, ig=%.4f]", n.attr, n.entr, n.ig)
+    @printf(io, "[%s | entr=%.4f, ig=%.4f]", n.attr, n.entr, n.ig)
