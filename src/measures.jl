@@ -1,5 +1,5 @@
 """Compute the entropy of the specified dataset."""
-function entropy(dataset::AbstractArray{T, 2}, target::Int,
+function entropy(dataset::AbstractArray{T, 2}, target::Integer,
                 c::Integer=2) where {T}
     class = dataset[:, target]
     prop_vals = collect(values(proportionmap(class)))
@@ -11,8 +11,8 @@ entropy(dataset::AbstractArray{T, 2}, target::String,
     entropy(dataset, findfirst(header, target), c)
 
 """Compute the information gain of the specified attribute."""
-function information_gain(dataset::AbstractArray{T, 2}, attribute::Int,
-                        target::Int, c::Integer=2) where {T}
+function information_gain(dataset::AbstractArray{T, 2}, attribute::Integer,
+                        target::Integer, c::Integer=2) where {T}
     n = size(dataset, 1)
     attr = dataset[:, attribute]
     uniques = unique(attr)
@@ -31,10 +31,12 @@ information_gain(dataset::AbstractArray{T, 2}, attribute::String,
     information_gain(dataset, findfirst(header, attribute),
                     findfirst(header, target), c)
 
-information_gain(dataset::AbstractArray{T, 2}, attribute::String, target::Int,
-                header::AbstractArray{String}, c::Integer=2) where {T} =
+information_gain(dataset::AbstractArray{T, 2}, attribute::String,
+                target::Integer, header::AbstractArray{String},
+                c::Integer=2) where {T} =
     information_gain(dataset, findfirst(header, attribute), target, c)
 
-information_gain(dataset::AbstractArray{T, 2}, attribute::Int, target::String,
-                header::AbstractArray{String}, c::Integer=2) where {T} =
+information_gain(dataset::AbstractArray{T, 2}, attribute::Integer,
+                target::String, header::AbstractArray{String},
+                c::Integer=2) where {T} =
     information_gain(dataset, attribute, findfirst(header, target), c)
