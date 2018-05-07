@@ -28,7 +28,7 @@ function information_gain(dataset::AbstractArray{T, 2}, attribute::Integer,
         return size(subset, 1) / n * entropy(subset, target, c)
     end, +, 0, uniques)
 
-    return entropy(dataset, target) - attr_sub_entropy
+    return entropy(dataset, target, c) - attr_sub_entropy
 end
 
 information_gain(dataset::AbstractArray{T, 2}, attribute::String,
