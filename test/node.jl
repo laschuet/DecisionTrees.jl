@@ -46,7 +46,6 @@ end
 end
 
 @testset "show" begin
-    io = IOBuffer()
     node = Node("", 0, 1, [])
     node2 = Node("class", 0, 1, [])
     @test sprint(show, node) == "[ | entr=0.0000, ig=1.0000]"
