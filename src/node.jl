@@ -23,7 +23,7 @@ information_gain(n::Node) = n.ig
 """Access a node's children."""
 children(n::Node) = n.children
 
-"""Retrieve number of children for the specified node."""
+"""Retrieve number of children."""
 num_children(n::Node) = length(n.children)
 
 # Check for equality
