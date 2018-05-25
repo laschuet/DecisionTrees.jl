@@ -54,7 +54,7 @@ end
     @test sprint(show, node) == "[] (entr=0.0000, ig=1.0000)"
 
     node2 = Node("2", 0, 1, [])
-    @test sprint(show, node2) == "[class] (entr=0.0000, ig=1.0000)"
+    @test sprint(show, node2) == "[2] (entr=0.0000, ig=1.0000)"
 
     node3 = Node("3", 0, 1, [])
     node4 = Node("4", 0, 1, [])
