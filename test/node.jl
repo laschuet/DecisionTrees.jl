@@ -47,7 +47,21 @@ end
 
 @testset "show" begin
     node = Node("", 0, 1, [])
-    node2 = Node("class", 0, 1, [])
-    @test sprint(show, node) == "[ | entr=0.0000, ig=1.0000]"
-    @test sprint(show, node2) == "[class | entr=0.0000, ig=1.0000]"
+    @test sprint(show, node) == "[] (entr=0.0000, ig=1.0000)"
+
+    node2 = Node("2", 0, 1, [])
+    @test sprint(show, node2) == "[class] (entr=0.0000, ig=1.0000)"
+
+    node3 = Node("3", 0, 1, [])
+    node4 = Node("4", 0, 1, [])
+    push!(node, node2)
+    push!(node2, node4)
+    push!(node2, node4)
+    push!(node, node3)
+    println(node)
+    @test sprint(show, node) == """[] (entr=0.0000, ig=1.0000)
+    |-- [2] (entr=0.0000, ig=1.0000)
+    |   |-- [4] (entr=0.0000, ig=1.0000)
+    |   `-- [4] (entr=0.0000, ig=1.0000)
+    `-- [3] (entr=0.0000, ig=1.0000)"""
 end

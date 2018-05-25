@@ -39,6 +39,24 @@ Base.push!(n::Node, child::Node) = push!(n.children, child)
 Base.append!(n::Node, children::AbstractArray{Node}) =
     append!(n.children, children)
 
-# Display the specified node
-Base.show(io::IO, n::Node) =
-    @printf(io, "[%s | entr=%.4f, ig=%.4f]", n.attr, n.entr, n.ig)
+# Display the specified node and its ancestors
+Base.show(io::IO, n::Node) = show(io, n)
+
+"""Auxiliary function to display the node and its ancestors with indentation"""
+function show(io::IO, n::Node, indent::Integer=0, islast::Bool=false)
+    if indent > 1
+        print(io, "|   " ^ (indent - 1))
+    end
+    if indent > 0
+        islast ? print(io, "`-- ") : print(io, "|-- ")
+    end
+
+    @printf(io, "[%s] (entr=%.4f, ig=%.4f)", n.attr, n.entr, n.ig)
+
+    succs = children(n)
+    sz = num_children(n)
+    for i in 1:sz
+        println(io)
+        show(io, succs[i], indent + 1, i == sz)
+    end
+end
