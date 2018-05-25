@@ -10,6 +10,7 @@ struct Node
     children::AbstractArray{Node}
 end
 Node() = Node("", 0, 1, [])
+Node(attr::String) = Node(attr, 0, 1, [])
 Node(attr::String, children::AbstractArray{Node}) = Node(attr, 0, 1, children)
 
 """Access a node's attribute."""

@@ -7,9 +7,13 @@
     @test isa(node2, Node) && node2.attr == "" && node2.entr == 0 &&
         node2.ig == 1 && node2.children == []
 
-    node3 = Node("", [node2])
-    @test isa(node3, Node) && node3.attr == "" && node3.entr == 0 &&
-        node3.ig == 1 && node3.children == [node2]
+    node3 = Node("attribute")
+    @test isa(node3, Node) && node3.attr == "attribute" && node3.entr == 0 &&
+        node3.ig == 1 && node3.children == []
+
+    node4 = Node("", [node3])
+    @test isa(node4, Node) && node4.attr == "" && node4.entr == 0 &&
+        node4.ig == 1 && node4.children == [node3]
 end
 
 @testset "accessors" begin
