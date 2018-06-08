@@ -9,5 +9,6 @@ header = ["buying", "maint", "doors", "persons", "lug_boot", "safety", "class"]
     @test size(cars, 2) == length(header) == 7
 end
 
+include("algorithms.jl")
 include("measures.jl")
 include("node.jl")

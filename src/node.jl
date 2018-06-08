@@ -3,18 +3,27 @@
 
 Decision tree node type.
 """
-struct Node
+mutable struct Node
     attr::String
+    class::String
+    dataset::AbstractArray{Any, 2}
     entr::Real
     ig::Real
     children::AbstractArray{Node}
 end
-Node() = Node("", 0, 1, [])
-Node(attr::String) = Node(attr, 0, 1, [])
-Node(attr::String, children::AbstractArray{Node}) = Node(attr, 0, 1, children)
+Node() = Node("", "", Array{Any, 2}(0, 0), 0, 1, [])
+Node(attr::String) = Node(attr, "", Array{Any, 2}(0, 0), 0, 1, [])
+Node(attr::String, children::AbstractArray{Node}) =
+    Node(attr, "", Array{Any, 2}(0, 0), 0, 1, children)
 
 """Access a node's attribute."""
 attribute(n::Node) = n.attr
+
+"""Access a node's class."""
+class(n::Node) = n.class
+
+"""Access a node's dataset."""
+dataset(n::Node) = n.dataset
 
 """Access a node's entropy."""
 entropy(n::Node) = n.entr
