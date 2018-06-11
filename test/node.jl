@@ -22,6 +22,7 @@ end
     @test entropy(node) == node.entr
     @test information_gain(node) == node.ig
     @test children(node) == node.children
+    @test num_children(node) == 0
     @test value(node) == node.value
 end
 
