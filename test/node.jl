@@ -1,28 +1,28 @@
 @testset "constructors" begin
     node = Node()
-    @test isa(node, Node) && node.attr == "" && node.class == "" &&
+    @test isa(node, Node) && node.value == "" && node.class == "" &&
         node.entr == 0 && node.ig == 1 && node.children == []
 
     node2 = Node("", "", 0, 1, [])
-    @test isa(node2, Node) && node2.attr == "" && node.class == "" &&
+    @test isa(node2, Node) && node2.value == "" && node.class == "" &&
         node2.entr == 0 && node2.ig == 1 && node2.children == []
 
-    node3 = Node("attribute")
-    @test isa(node3, Node) && node3.attr == "attribute" && node.class == "" &&
+    node3 = Node("value")
+    @test isa(node3, Node) && node3.value == "value" && node.class == "" &&
         node3.entr == 0 && node3.ig == 1 && node3.children == []
 
     node4 = Node("", [node3])
-    @test isa(node4, Node) && node4.attr == "" && node.class == "" &&
+    @test isa(node4, Node) && node4.value == "" && node.class == "" &&
         node4.entr == 0 && node4.ig == 1 && node4.children == [node3]
 end
 
 @testset "accessors" begin
     node = Node("", "", 0, 1, [])
-    @test attribute(node) == node.attr
     @test class(node) == node.class
     @test entropy(node) == node.entr
     @test information_gain(node) == node.ig
     @test children(node) == node.children
+    @test value(node) == node.value
 end
 
 @testset "properties" begin
@@ -52,7 +52,7 @@ end
 
 @testset "show" begin
     node = Node("", "", 0, 1, [])
-    @test sprint(show, node) == "[] (entr=0.0000, ig=1.0000)"
+    @test sprint(show, node) == "()"
 
     node2 = Node("2", "", 0, 1, [])
     @test sprint(show, node2) == "[2] (entr=0.0000, ig=1.0000)"
@@ -64,7 +64,7 @@ end
     push!(node2, node4)
     push!(node, node3)
     println(node)
-    @test sprint(show, node) == """[] (entr=0.0000, ig=1.0000)
+    @test sprint(show, node) == """()
     |-- [2] (entr=0.0000, ig=1.0000)
     |   |-- [4] (entr=0.0000, ig=1.0000)
     |   `-- [4] (entr=0.0000, ig=1.0000)

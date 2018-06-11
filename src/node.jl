@@ -4,19 +4,16 @@
 Decision tree node type.
 """
 mutable struct Node
-    attr::String
+    value::String
     class::String
     entr::Real
     ig::Real
     children::AbstractArray{Node}
 end
 Node() = Node("", "", 0, 1, [])
-Node(attr::String) = Node(attr, "", 0, 1, [])
-Node(attr::String, children::AbstractArray{Node}) =
-    Node(attr, "", 0, 1, children)
-
-"""Access a node's attribute."""
-attribute(n::Node) = n.attr
+Node(value::String) = Node(value, "", 0, 1, [])
+Node(value::String, children::AbstractArray{Node}) =
+    Node(value, "", 0, 1, children)
 
 """Access a node's class."""
 class(n::Node) = n.class
@@ -33,9 +30,12 @@ children(n::Node) = n.children
 """Retrieve number of children."""
 num_children(n::Node) = length(n.children)
 
+"""Access a node's value."""
+value(n::Node) = n.value
+
 # Check for equality
 Base.:(==)(x::Node, y::Node) =
-    (x.attr == y.attr) & (x.entr == y.entr) & (x.ig == y.ig) &
+    (x.value == y.value) & (x.entr == y.entr) & (x.ig == y.ig) &
         (x.children == y.children)
 
 # Add the specified child to the node
@@ -57,8 +57,8 @@ function show(io::IO, n::Node, indent::Integer=0, islast::Bool=false)
         islast ? print(io, "`-- ") : print(io, "|-- ")
     end
 
-    if n.attr != ""
-        @printf(io, "[%s] (entr=%.4f, ig=%.4f)", n.attr, n.entr, n.ig)
+    if n.value != ""
+        @printf(io, "[%s] (entr=%.4f, ig=%.4f)", n.value, n.entr, n.ig)
     else
         @printf(io, "(%s)", n.class)
     end

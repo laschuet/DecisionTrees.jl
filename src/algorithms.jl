@@ -29,14 +29,13 @@ function id3(dataset::AbstractArray{T, 2}, target::Integer,
         push!(igs, ig)
     end
     maxind = indmax(igs)
-    node.attr = attributes[maxind]
+    node.value = attributes[maxind]
     node.entr = entropy(dataset, target, nclasses)
     node.ig = igs[maxind]
 
     # Add children for each possible value of the attribute
     vals = dataset[:, maxind]
     uniques = unique(vals)
-    println(uniques)
     for i in 1:length(uniques)
         uni = uniques[i]
         subdataset = dataset[vals .== uni, :]
@@ -49,7 +48,7 @@ function id3(dataset::AbstractArray{T, 2}, target::Integer,
             child.class = classes[indmax(classcounts)]
             push!(node, child)
         else
-            remattributes = filter(a -> a != node.attr, attributes)
+            remattributes = filter(a -> a != node.value, attributes)
             subtree = id3(subdataset, target, remattributes)
             push!(node, subtree)
         end
