@@ -1,4 +1,5 @@
 @testset "id3" begin
-    tree = id3(cars, 7, header, 4)
+    attributes = filter(a -> a != "class", header)
+    tree = id3(cars, 7, attributes)
     println(tree)
 end

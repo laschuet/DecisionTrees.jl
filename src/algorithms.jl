@@ -1,45 +1,59 @@
 """Train a decision tree using the ID algorithm."""
-function id3(dataset::AbstractArray{T, 2}, class::Integer,
-            header::AbstractArray{String}, c::Integer=2) where {T}
-    root = Node()
-    root.dataset = dataset
-    remaining = [root]
+function id3(dataset::AbstractArray{T, 2}, target::Integer,
+            attributes::AbstractArray{String}) where {T}
+    targets = dataset[:, target]
+    classes = unique(targets)
+    nclasses = length(classes)
+    node = Node()
 
-    while !isempty(remaining)
-        node = pop!(remaining)
+    # Check if there is only one class left
+    if length(classes) == 1
+        node.class = classes[1]
+        return node
+    end
 
-        # If everything is classified perfectly, a child node has been found
-        classes = unique(node.dataset[:, class])
-        if length(classes) == 1
-            node.class = classes[1]
-            continue
+    # Determine major class if there are no attributes left
+    if isempty(attributes)
+        classcounts = zeros(nclasses)
+        for i in 1:nclasses
+            classcounts[i] = count(t -> t == classes[i], targets)
         end
+        node.class = classes[indmax(classcounts)]
+        return node
+    end
 
-        # Determine best attribute using information gain
-        igs = []
-        for i in 1:size(node.dataset, 2)
-            if i == class
-                continue
+    # Determine best attribute for the node
+    igs = []
+    for attr in 1:length(attributes)
+        ig = information_gain(dataset, attr, target, nclasses)
+        push!(igs, ig)
+    end
+    maxind = indmax(igs)
+    node.attr = attributes[maxind]
+    node.entr = entropy(dataset, target, nclasses)
+    node.ig = igs[maxind]
+
+    # Add children for each possible value of the attribute
+    vals = dataset[:, maxind]
+    uniques = unique(vals)
+    println(uniques)
+    for i in 1:length(uniques)
+        uni = uniques[i]
+        subdataset = dataset[vals .== uni, :]
+        if isempty(subdataset)
+            classcounts = zeros(nclasses)
+            for i in 1:nclasses
+                classcounts[i] = count(t -> t == classes[i], targets)
             end
-            ig = information_gain(node.dataset, i, class, c)
-            push!(igs, ig)
-        end
-        maxind = indmax(igs)
-        node.attr = header[maxind]
-        node.entr = entropy(node.dataset, class, c)
-        node.ig = igs[maxind]
-
-        # Add children for each attribute's value
-        attr = node.dataset[:, maxind]
-        uniques = unique(attr)
-        for i in 1:length(uniques)
-            val = uniques[i]
             child = Node()
-            child.dataset = node.dataset[attr .== val, :]
+            child.class = classes[indmax(classcounts)]
             push!(node, child)
-            push!(remaining, child)
+        else
+            remattributes = filter(a -> a != node.attr, attributes)
+            subtree = id3(subdataset, target, remattributes)
+            push!(node, subtree)
         end
     end
 
-    return root
+    return node
 end

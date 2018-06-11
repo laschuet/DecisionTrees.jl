@@ -6,24 +6,20 @@ Decision tree node type.
 mutable struct Node
     attr::String
     class::String
-    dataset::AbstractArray{Any, 2}
     entr::Real
     ig::Real
     children::AbstractArray{Node}
 end
-Node() = Node("", "", Array{Any, 2}(0, 0), 0, 1, [])
-Node(attr::String) = Node(attr, "", Array{Any, 2}(0, 0), 0, 1, [])
+Node() = Node("", "", 0, 1, [])
+Node(attr::String) = Node(attr, "", 0, 1, [])
 Node(attr::String, children::AbstractArray{Node}) =
-    Node(attr, "", Array{Any, 2}(0, 0), 0, 1, children)
+    Node(attr, "", 0, 1, children)
 
 """Access a node's attribute."""
 attribute(n::Node) = n.attr
 
 """Access a node's class."""
 class(n::Node) = n.class
-
-"""Access a node's dataset."""
-dataset(n::Node) = n.dataset
 
 """Access a node's entropy."""
 entropy(n::Node) = n.entr
@@ -61,7 +57,11 @@ function show(io::IO, n::Node, indent::Integer=0, islast::Bool=false)
         islast ? print(io, "`-- ") : print(io, "|-- ")
     end
 
-    @printf(io, "[%s] (entr=%.4f, ig=%.4f)", n.attr, n.entr, n.ig)
+    if n.attr != ""
+        @printf(io, "[%s] (entr=%.4f, ig=%.4f)", n.attr, n.entr, n.ig)
+    else
+        @printf(io, "(%s)", n.class)
+    end
 
     succs = children(n)
     sz = num_children(n)
