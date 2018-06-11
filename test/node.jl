@@ -64,7 +64,6 @@ end
     push!(node2, node4)
     push!(node2, node4)
     push!(node, node3)
-    println(node)
     @test sprint(show, node) == """()
     |-- [2] (entr=0.0000, ig=1.0000)
     |   |-- [4] (entr=0.0000, ig=1.0000)
