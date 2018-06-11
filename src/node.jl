@@ -28,7 +28,7 @@ information_gain(n::Node) = n.ig
 children(n::Node) = n.children
 
 """Retrieve number of children."""
-num_children(n::Node) = length(n.children)
+nchildren(n::Node) = length(n.children)
 
 """Access a node's value."""
 value(n::Node) = n.value
@@ -64,7 +64,7 @@ function show(io::IO, n::Node, indent::Integer=0, islast::Bool=false)
     end
 
     succs = children(n)
-    sz = num_children(n)
+    sz = nchildren(n)
     for i in 1:sz
         println(io)
         show(io, succs[i], indent + 1, i == sz)

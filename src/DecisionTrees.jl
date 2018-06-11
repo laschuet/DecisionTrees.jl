@@ -6,8 +6,8 @@ export children,
     entropy,
     id3,
     information_gain,
+    nchildren,
     Node,
-    num_children,
     value
 
 include("algorithms.jl")
