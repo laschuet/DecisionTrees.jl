@@ -15,6 +15,9 @@ Node(value::String) = Node(value, "", 0, 1, [])
 Node(value::String, children::AbstractArray{Node}) =
     Node(value, "", 0, 1, children)
 
+"""Access a node's value."""
+value(n::Node) = n.value
+
 """Access a node's class."""
 class(n::Node) = n.class
 
@@ -29,9 +32,6 @@ children(n::Node) = n.children
 
 """Retrieve number of children."""
 nchildren(n::Node) = length(n.children)
-
-"""Access a node's value."""
-value(n::Node) = n.value
 
 # Check for equality
 Base.:(==)(x::Node, y::Node) =

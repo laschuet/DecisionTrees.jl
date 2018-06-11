@@ -18,12 +18,12 @@ end
 
 @testset "accessors" begin
     node = Node("", "", 0, 1, [])
+    @test value(node) == node.value
     @test class(node) == node.class
     @test entropy(node) == node.entr
     @test information_gain(node) == node.ig
     @test children(node) == node.children
     @test nchildren(node) == 0
-    @test value(node) == node.value
 end
 
 @testset "properties" begin
