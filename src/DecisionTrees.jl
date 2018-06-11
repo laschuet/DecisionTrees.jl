@@ -3,7 +3,6 @@ module DecisionTrees
 
 export children,
     class,
-    dataset,
     entropy,
     id3,
     information_gain,
