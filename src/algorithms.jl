@@ -7,7 +7,7 @@ function id3(dataset::AbstractArray{T, 2}, target::Integer,
     node = Node()
 
     # Check if there is only one class left
-    if length(classes) == 1
+    if nclasses == 1
         node.class = classes[1]
         return node
     end
