@@ -1,6 +1,8 @@
 __precompile__()
 module DecisionTrees
 
+using Printf
+
 export children,
     class,
     entropy,

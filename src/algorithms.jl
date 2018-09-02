@@ -18,7 +18,7 @@ function id3(dataset::AbstractArray{T, 2}, target::Integer,
         for i in 1:nclasses
             classcounts[i] = count(t -> t == classes[i], targets)
         end
-        node.class = classes[indmax(classcounts)]
+        node.class = classes[argmax(classcounts)]
         return node
     end
 
@@ -28,7 +28,7 @@ function id3(dataset::AbstractArray{T, 2}, target::Integer,
         ig = information_gain(dataset, attr, target, nclasses)
         push!(igs, ig)
     end
-    maxind = indmax(igs)
+    maxind = argmax(igs)
     node.value = attributes[maxind]
     node.entr = entropy(dataset, target, nclasses)
     node.ig = igs[maxind]

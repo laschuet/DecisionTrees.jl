@@ -1,7 +1,11 @@
 using DecisionTrees
-using Base.Test
+using DelimitedFiles
+using Test
 
-cars = readdlm(joinpath(Pkg.dir("DecisionTrees"), "test/data/car.data"), ',')
+import DecisionTrees
+
+file = joinpath(dirname(pathof(DecisionTrees)), "..", "test/data/car.data")
+cars = readdlm(file, ',')
 header = ["buying", "maint", "doors", "persons", "lug_boot", "safety", "class"]
 
 @testset "data" begin
