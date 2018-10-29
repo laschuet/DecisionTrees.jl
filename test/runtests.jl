@@ -2,8 +2,6 @@ using DecisionTrees
 using DelimitedFiles
 using Test
 
-import DecisionTrees
-
 file = joinpath(dirname(pathof(DecisionTrees)), "..", "test/data/car.data")
 cars = readdlm(file, ',')
 header = ["buying", "maint", "doors", "persons", "lug_boot", "safety", "class"]
